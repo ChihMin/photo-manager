@@ -1,3 +1,10 @@
 <h1>Posts#index</h1>
 <p>Find me in app/views/posts/index.html.erb</p>
 <%= link_to "New post", new_post_path, class: "btn btn-primary" %>
+<div class="container">
+  <% @photos.each do |photo| %>
+    <div class="col-md-3">
+      <img src="<%= photo.avatar.url %>" class="img-responsive"  alt="Cinque Terre">
+    </div>
+  <% end %>
+</div>

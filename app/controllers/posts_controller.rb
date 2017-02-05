@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   def index
+    @photos = Post.all
   end
 
   def new
@@ -10,12 +11,11 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    if @post.save
-      redirect_to posts_path
-    else
-      render :new
+    params[:images].each do |image|
+      @post = Post.create(avatar: image)
+      print "\n -------> #{image} <------- \n"
     end
+    redirect_to posts_path
   end
 
   def upload
