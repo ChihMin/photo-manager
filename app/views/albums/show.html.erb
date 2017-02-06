@@ -6,11 +6,13 @@
 </div>
 
 <!-- The container for the list of example images -->
-<div class="container col-md-12 links" id="links">
+<div class="container col-md-12 links" id="galleries">
   <% count = 0 %>
+  <% is_pair = true %>
   <% @photos.each do |photo| %>
     <% if count % 4 == 0 %>
       <div class="row">
+      <% is_pair = false %>
     <% end %>
     <div class="col-md-3">
       <a href="<%= photo.avatar.url %>" class="thumbnail">
@@ -18,12 +20,18 @@
       </a>
     </div>
     <% if count % 4 == 3 %>
+      <% is_pair = true %>
       </div>
     <% end %>
     <% count = count + 1 %>
   <% end %>
+  <% if !is_pair %>
+    </div>
+  <% end %>
 </div>
 
+
+<%= paginate @photos, :theme => 'twitter-bootstrap-3'%>
 <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
 <div id="blueimp-gallery" class="blueimp-gallery">
     <div class="slides"></div>
@@ -53,8 +61,9 @@
     background-size: 100% 100%;
   }
 </style>
+
 <script>
-document.getElementById('links').onclick = function (event) {
+document.getElementById('galleries').onclick = function (event) {
     event = event || window.event;
     var target = event.target || event.srcElement,
         link = target.src ? target.parentNode : target,
@@ -63,4 +72,5 @@ document.getElementById('links').onclick = function (event) {
     blueimp.Gallery(links, options);
 };
 </script>
+
 

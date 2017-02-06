@@ -5,7 +5,7 @@ class AlbumsController < ApplicationController
 
   def show
     @album = Album.find(params[:id])
-    @photos = @album.posts.all
+    @photos = @album.posts.page(params[:page]).per(12)
   end
 
   def new

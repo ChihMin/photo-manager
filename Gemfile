@@ -28,6 +28,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'carrierwave', '~> 1.0'
 gem 'bootstrap-sass'
 gem 'simple_form'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
