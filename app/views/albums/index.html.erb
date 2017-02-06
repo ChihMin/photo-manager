@@ -5,13 +5,16 @@
 </div>
 
 <br><br>
-<br><br>
-<br><br>
 
-<div class="container col-md-12">
+<div class="row col-md-12">
+  <% count = 0 %>
   <% @albums.each do |album| %>
+    <% if count % 4 == 0 %>
+      <div class="row">
+    <% end %>
+    
     <div class="col-md-3">
-      <a href="<%= album_path(album) %>">
+      <a href="<%= album_path(album) %>" class="thumbnail">
       <% if album.photo != nil %>
         <img src="<%= album.photo %>" class="img-responsive">
       <% else %>
@@ -20,5 +23,10 @@
       </a>
       <%= link_to album.title, album_path(album) %>
     </div>
+
+    <% if count % 4 == 3 %>
+      </div>
+    <% end %>
+    <% count = count + 1 %>
   <% end %> 
 </div
