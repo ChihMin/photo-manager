@@ -1,6 +1,9 @@
-<h1>Posts#index</h1>
+<h1><%= @album.title %></h1>
 
-<%= link_to "Add new photos", new_album_post_path(@album), class: "btn btn-primary pull-right" %>
+<div class="container col-md-12">
+  <%= link_to "Add new photos", new_album_post_path(@album), class: "btn btn-primary pull-right" %>
+  <%= link_to "Album category", albums_path, class: "btn btn-warning" %>
+</div>
 
 <div class="container">
   <% @photos.each do |photo| %>
@@ -9,6 +12,7 @@
     </div>
   <% end %>
 </div>
+
 <style>
   .thum {
     width: 320px;

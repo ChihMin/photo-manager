@@ -1,21 +1,28 @@
 class PostsController < ApplicationController
+  before_action :find_album
+  
   def index
     @photos = Post.all
   end
 
   def new
-    @post = Post.new
+    @post = @album.posts.build
   end
 
   def edit
   end
 
   def create
+    has_photo = false
     params[:images].each do |image|
-      @post = Post.create(avatar: image)
-      print "\n -------> #{image} <------- \n"
+      @post = @album.posts.create(avatar: image)
+      has_photo = true
     end
-    redirect_to posts_path
+    
+    if has_photo
+      @album.update(photo: @post.avatar.url)
+    end
+    redirect_to album_path(@album)
   end
 
   def upload
@@ -25,8 +32,12 @@ class PostsController < ApplicationController
   end
 
 private
-  
+
   def post_params
     params.require(:post).permit(:description, :avatar)
+  end
+
+  def find_album
+    @album = Album.find(params[:album_id])
   end
 end
