@@ -1,4 +1,4 @@
-<h1> All albums </h1>
+<h1> 所有相簿 </h1>
 
 <div class="container col-md-12">
   <%= link_to "New Album", new_album_path, class: "btn btn-primary pull-right" %>
@@ -8,9 +8,11 @@
 
 <div class="row col-md-12">
   <% count = 0 %>
+  <% is_pair = true %>
   <% @albums.each do |album| %>
     <% if count % 4 == 0 %>
       <div class="row">
+      <% is_pair = false %>
     <% end %>
     
     <div class="col-md-3">
@@ -21,12 +23,16 @@
         <img src="/404.gif" class="img-responsive">
       <% end %>
       </a>
-      <%= link_to album.title, album_path(album) %>
+      <center> <%= link_to album.title, album_path(album) %> </center>
     </div>
 
     <% if count % 4 == 3 %>
+      <% is_pair = true %>
       </div>
     <% end %>
     <% count = count + 1 %>
   <% end %> 
+  <% if !is_pair %>
+    </div>
+  <% end %>
 </div>

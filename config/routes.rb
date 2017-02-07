@@ -4,6 +4,10 @@ Rails.application.routes.draw do
     resources :posts
   end
   
+  get 'albums/:album_id/albums/new' => 'albums#new_album', as: :new_sub_album
+  post 'albums/:album_id/albums' => 'albums#create_album', as: :create_sub_album 
+  
+  root 'albums#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,10 +1,55 @@
 <h1><%= @album.title %></h1>
 
-<div class="container col-md-12">
-  <%= link_to "Add new photos", new_album_post_path(@album), class: "btn btn-primary pull-right" %>
-  <%= link_to "Album category", albums_path, class: "btn btn-warning" %>
+<div class="container">
+  
 </div>
 
+<div class="container col-md-12">
+  <%= link_to "回首頁", albums_path, class: "btn btn-warning" %>
+  <% if @album.albums.count == 0 %>
+    <%= link_to "刪除此相簿", album_path, method: :delete, class: "btn btn-danger pull-right", data: {confirm: "確定要刪除這個相簿嗎？刪掉以後，這個資料夾裡面，「所有的」相簿通通都會不見喔"} %> 
+  <% end %>
+</div>
+
+<div class="container col-md-12">
+<h3> 相簿 </h3>
+<%= link_to "新增相簿", new_sub_album_path(@album), class: "btn btn-success pull-right" %> 
+<div class="continer col-md-12">
+  <% count = 0 %>
+  <% is_pair = true %>
+  <% @albums.each do |album| %>
+    <% if count % 4 == 0 %>
+      <div class="row">
+      <% is_pair = false %>
+    <% end %>
+    
+    <div class="col-md-3">
+      <a href="<%= album_path(album) %>" class="thumbnail">
+      <% if album.photo != nil %>
+        <img src="<%= album.photo %>" class="img-responsive">
+      <% else %>
+        <img src="/404.gif" class="img-responsive">
+      <% end %>
+      </a>
+      <center> <%= link_to album.title, album_path(album) %> </center>
+    </div>
+
+    <% if count % 4 == 3 %>
+      <% is_pair = true %>
+      </div>
+    <% end %>
+    <% count = count + 1 %>
+  <% end %>
+  <% if !is_pair %>
+    </div>
+  <% end %>
+</div>
+</div>
+
+
+<div class="container col-md-12">
+<h3> 相片 </h3>
+<%= link_to "新增相片", new_album_post_path(@album), class: "btn btn-primary pull-right" %>
 <!-- The container for the list of example images -->
 <div class="container col-md-12 links" id="galleries">
   <% count = 0 %>
@@ -29,7 +74,7 @@
     </div>
   <% end %>
 </div>
-
+</div>
 
 <%= paginate @photos, :theme => 'twitter-bootstrap-3'%>
 <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
