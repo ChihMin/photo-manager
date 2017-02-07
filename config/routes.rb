@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   
   get 'albums/:album_id/albums/new' => 'albums#new_album', as: :new_sub_album
   post 'albums/:album_id/albums' => 'albums#create_album', as: :create_sub_album 
-  
+  post 'albums/:id/set_private' => 'albums#set_private', as: :set_album_private
+    
   root 'albums#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

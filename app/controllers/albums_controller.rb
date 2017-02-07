@@ -7,6 +7,9 @@ class AlbumsController < ApplicationController
 
   def show
     @album = Album.find(params[:id])
+    if @album.privated
+      authenticate_user!
+    end 
     @albums = @album.albums
 	@album_list = Array.new
 	current_album = @album
@@ -29,6 +32,7 @@ class AlbumsController < ApplicationController
    
   def create
     @album = Album.new(album_params)
+    @album.privated = false
     @album.level = 0
     if @album.save
       redirect_to album_path(@album)
@@ -48,6 +52,16 @@ class AlbumsController < ApplicationController
     end
   end
   
+  def set_private
+    @album = Album.find(params[:id])
+    if @album.privated == true
+      @album.update(privated: false)
+    else
+      @album.update(privated: true)
+    end
+    redirect_to album_path(@album)
+  end
+   
   def edit
     @album = Album.find(params[:id])
   end

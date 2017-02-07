@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170207045601) do
+ActiveRecord::Schema.define(version: 20170207065432) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "title"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20170207045601) do
     t.string   "photo"
     t.integer  "album_id"
     t.integer  "level"
+    t.boolean  "privated"
   end
 
   create_table "posts", force: :cascade do |t|

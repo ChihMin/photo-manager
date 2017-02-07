@@ -1,4 +1,4 @@
-<h1><%= @album.title %></h1>
+<h1> <% if @album.privated %> <p class="label label-danger">私人</p> <% end %> <%= @album.title %></h1>
 
 <div class="container col-md-12">
   <ol class="breadcrumb">
@@ -21,6 +21,11 @@
   <% end %>
   <% if current_user %>
     <%= link_to "編輯相簿", edit_album_path(@album), class: "btn btn-warning pull-right" %>
+    <% if @album.privated %>
+      <%= link_to "設為公開", set_album_private_path(@album), method: :post, class: "btn btn-info pull-right" %>
+    <% else %>
+      <%= link_to "設為私人", set_album_private_path(@album), method: :post, class: "btn btn-default pull-right" %>
+    <% end %>
   <% end %>
 </div>
 
@@ -38,22 +43,29 @@
       <% is_pair = false %>
     <% end %>
     
-    <div class="col-md-3">
-      <a href="<%= album_path(album) %>" class="thumbnail">
-      <% if album.photo != nil %>
-        <img src="<%= album.photo %>" class="img-responsive">
-      <% else %>
-        <img src="/404.gif" class="img-responsive">
-      <% end %>
-      </a>
-      <center> <%= link_to album.title, album_path(album) %> </center>
-    </div>
-
-    <% if count % 4 == 3 %>
-      <% is_pair = true %>
+    <% if current_user || (!current_user && !album.privated) %>
+      <div class="col-md-3">
+        <a href="<%= album_path(album) %>" class="thumbnail">
+        <% if album.photo != nil %>
+          <img src="<%= album.photo %>" class="img-responsive">
+        <% else %>
+          <img src="/404.gif" class="img-responsive">
+        <% end %>
+        </a>
+        <center>
+          <% if album.privated %>
+            <p class="label label-danger"> 私人</p> 
+          <% end %>
+          <%= link_to album.title, album_path(album) %>
+        </center>
       </div>
+
+      <% if count % 4 == 3 %>
+        <% is_pair = true %>
+        </div>
+      <% end %>
+      <% count = count + 1 %>
     <% end %>
-    <% count = count + 1 %>
   <% end %>
   <% if !is_pair %>
     </div>
