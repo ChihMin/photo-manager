@@ -9,14 +9,18 @@
 </div>
 
 <div class="container col-md-12">
-  <%= link_to "回首頁", albums_path, class: "btn btn-warning" %>
+  <%= link_to "回首頁", albums_path, class: "btn btn-info" %>
   <% if @album.album != nil %>
     <%= link_to "回上一層", album_path(@album.album), class: "btn btn-default" %>
   <% else %>
     <%= link_to "回上一層", albums_path, class: "btn btn-default" %>
   <% end %>
+
   <% if current_user && @album.albums.count == 0 %>
     <%= link_to "刪除此相簿", album_path, method: :delete, class: "btn btn-danger pull-right", data: {confirm: "確定要刪除這個相簿嗎？刪掉以後，這個資料夾裡面，「所有的」相簿通通都會不見喔"} %> 
+  <% end %>
+  <% if current_user %>
+    <%= link_to "編輯相簿", edit_album_path(@album), class: "btn btn-warning pull-right" %>
   <% end %>
 </div>
 

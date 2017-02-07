@@ -1,6 +1,6 @@
-<h1> 在 <%= @album.title %> 裡新增一個相簿 </h1>
+<h1> 編輯相簿 <%= @album.title %> </h1>
 
-<%= simple_form_for [@new_album], :url => create_sub_album_path, :method => :post do |f| %>
+<%= simple_form_for(@album) do |f| %>
   <%= f.input :title, input_html: {class: "form-control"} %>
   <%= f.input :description, input_html: {class: "form-control"} %>
   <%= f.submit "Submit", class: "btn btn-primary", data: {disable_with: "Submitting..."} %> 
