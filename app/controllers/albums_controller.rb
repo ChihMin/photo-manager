@@ -6,6 +6,13 @@ class AlbumsController < ApplicationController
   def show
     @album = Album.find(params[:id])
     @albums = @album.albums
+	@album_list = Array.new
+	current_album = @album
+	while current_album != nil 
+      @album_list << current_album
+	  current_album = current_album.album
+    end
+    @album_list.reverse!
     @photos = @album.posts.page(params[:page]).per(12)
   end
 
