@@ -1,4 +1,6 @@
 class AlbumsController < ApplicationController
+  before_action :authenticate_user!, except: [:show, :index]
+
   def index
     @albums = Album.where(level: 0)
   end

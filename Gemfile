@@ -30,6 +30,7 @@ gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
+gem "devise", "~> 4.0.0"
 # Use Unicorn as the app server
 # gem 'unicorn'
 

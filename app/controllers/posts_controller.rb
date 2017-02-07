@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :find_album
-  
+  before_action :authenticate_user!
+   
   def index
     @photos = Post.all
   end

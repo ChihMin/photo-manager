@@ -15,14 +15,16 @@
   <% else %>
     <%= link_to "回上一層", albums_path, class: "btn btn-default" %>
   <% end %>
-  <% if @album.albums.count == 0 %>
+  <% if current_user && @album.albums.count == 0 %>
     <%= link_to "刪除此相簿", album_path, method: :delete, class: "btn btn-danger pull-right", data: {confirm: "確定要刪除這個相簿嗎？刪掉以後，這個資料夾裡面，「所有的」相簿通通都會不見喔"} %> 
   <% end %>
 </div>
 
 <div class="container col-md-12">
 <h3> 相簿 </h3>
-<%= link_to "新增相簿", new_sub_album_path(@album), class: "btn btn-success pull-right" %> 
+<% if current_user %>
+  <%= link_to "新增相簿", new_sub_album_path(@album), class: "btn btn-success pull-right" %> 
+<% end %>
 <div class="continer col-md-12">
   <% count = 0 %>
   <% is_pair = true %>
@@ -58,7 +60,9 @@
 
 <div class="container col-md-12">
 <h3> 相片 </h3>
-<%= link_to "新增相片", new_album_post_path(@album), class: "btn btn-primary pull-right" %>
+<% if current_user %>
+  <%= link_to "新增相片", new_album_post_path(@album), class: "btn btn-primary pull-right" %>
+<% end %>
 <!-- The container for the list of example images -->
 <div class="container col-md-12 links" id="galleries">
   <% count = 0 %>
