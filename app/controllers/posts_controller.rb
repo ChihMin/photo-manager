@@ -20,7 +20,11 @@ class PostsController < ApplicationController
     end
     
     if has_photo
-      @album.update(photo: @post.avatar.url)
+      current_album = @album
+      while current_album != nil
+        current_album.update(photo: @post.avatar.url)
+        current_album = current_album.album
+      end
     end
     redirect_to album_path(@album)
   end
