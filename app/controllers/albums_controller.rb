@@ -3,6 +3,7 @@ class AlbumsController < ApplicationController
 
   def index
     @albums = Album.where(level: 0)
+    @usage = `du -sh`.split()[0] + "B" 
   end
 
   def show
